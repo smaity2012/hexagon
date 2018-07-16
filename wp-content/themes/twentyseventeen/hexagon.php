@@ -20,7 +20,10 @@ get_header();
 </style> 
 <h3 class="text-center">Drag and drop file upload using JQuery Ajax and PHP</h3>
 <br/>
-<form id="img_frame" method="POST" enctype="multipart/form-data">  
+<form id="img_frame" method="POST" enctype="multipart/form-data">
+	<span class="errorMsg"></span>  
+	<input type="radio" name="hexagon-img-frame" class="hif" value="frame">Frame
+	<input type="radio" name="hexagon-img-frame" class="hif" value="image">Image
 	<div class="file_drag_area">  
 		Drop Files Here  
 	</div>
@@ -51,8 +54,7 @@ get_header();
 			 * Step 1 : Get the form id and store in a 
 			 * variable
 		 	 */
-		 	var form = document.getElementById('img_frame');
-			
+		 	var form = document.getElementById('img_frame');			
 
 		 	/**
 			 * Step 2 : Create a new form instant with the 
@@ -91,7 +93,12 @@ get_header();
            	cache: false,  
            	processData: false,  
            	success: function(data, textStatus, XMLHttpRequest) {
-           		console.log(data);
+           		
+           		if( data === "0" ){
+
+           			jQuery(".errorMsg").html('Please select one of the options: ');
+
+           		}
            	},
 
            	error: function(MLHttpRequest, textStatus, errorThrown) {
